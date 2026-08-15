@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jordan Owens — Cyber Engineering</title>
+<meta name="description" content="Jordan Owens — Cyber Engineering student at Louisiana Tech. Systems programming in C, blue team competition, low-level security.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ground:#E4E2DC;
+    --panel:#EDEBE5;
+    --ink:#16181A;
+    --ink-soft:#5A5E63;
+    --rule:#C7C4BB;
+    --slate:#26384A;
+    --signal:#C05A12;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+    --sans:'IBM Plex Sans',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+  body{
+    margin:0;background:var(--ground);color:var(--ink);
+    font-family:var(--sans);font-size:16px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px}
+  a{color:var(--slate);text-decoration:none;border-bottom:1px solid var(--rule)}
+  a:hover{color:var(--signal);border-color:var(--signal)}
+  a:focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:2px}
+  code{font-family:var(--mono);font-size:.9em;background:var(--panel);padding:1px 5px;border:1px solid var(--rule)}
+
+  nav{
+    position:sticky;top:0;z-index:10;background:rgba(228,226,220,.92);
+    backdrop-filter:blur(6px);border-bottom:1px solid var(--rule);
+  }
+  nav .wrap{display:flex;gap:20px;padding-top:14px;padding-bottom:14px;flex-wrap:wrap;align-items:center}
+  nav a{
+    font-family:var(--mono);font-size:12px;letter-spacing:.06em;
+    text-transform:uppercase;border:none;color:var(--ink-soft);
+  }
+  nav a:hover{color:var(--signal)}
+  nav .tag{font-family:var(--mono);font-size:12px;color:var(--signal);margin-right:auto;font-weight:600}
+
+  header{padding:80px 0 60px;border-bottom:1px solid var(--rule)}
+  .dump{
+    font-family:var(--mono);font-size:12.5px;line-height:1.85;
+    background:var(--panel);border:1px solid var(--rule);
+    padding:18px 20px;overflow-x:auto;white-space:pre;
+    color:var(--ink-soft);margin-bottom:34px;
+  }
+  .dump .off{color:var(--slate)}
+  .dump .asc{color:var(--signal);font-weight:600}
+  h1{
+    font-family:var(--mono);font-weight:600;font-size:clamp(34px,6vw,58px);
+    letter-spacing:-.02em;line-height:1.05;margin:0 0 14px;
+  }
+  .role{font-family:var(--mono);font-size:14px;color:var(--signal);letter-spacing:.04em;margin:0 0 26px}
+  .lede{font-size:18px;max-width:60ch;margin:0 0 30px;color:var(--ink)}
+  .meta{font-family:var(--mono);font-size:13px;color:var(--ink-soft);display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+  .btn{
+    display:inline-block;font-family:var(--mono);font-size:13px;font-weight:600;
+    letter-spacing:.04em;padding:10px 20px;border:1.5px solid var(--ink);
+    color:var(--ink);background:transparent;transition:all .15s ease;
+  }
+  .btn:hover{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+  .btn.primary{background:var(--signal);border-color:var(--signal);color:#fff}
+  .btn.primary:hover{background:#A34A0C;border-color:#A34A0C;color:#fff}
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:30px}
+
+  section{padding:60px 0;border-bottom:1px solid var(--rule)}
+  .head{display:flex;align-items:baseline;gap:16px;margin-bottom:32px}
+  .off-mark{
+    font-family:var(--mono);font-size:12px;color:var(--signal);
+    font-weight:600;letter-spacing:.05em;flex:none;padding-top:4px;
+  }
+  h2{font-family:var(--mono);font-size:22px;font-weight:600;letter-spacing:-.01em;margin:0}
+
+  .item{padding:24px 0;border-top:1px solid var(--rule)}
+  .item:first-of-type{border-top:none;padding-top:0}
+  h3{font-size:19px;font-weight:600;margin:0 0 4px}
+  .sub{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);margin:0 0 12px;letter-spacing:.02em}
+  .item p{margin:0 0 12px;max-width:68ch}
+  .stack{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+  .chip{
+    font-family:var(--mono);font-size:11.5px;padding:3px 9px;
+    background:var(--panel);border:1px solid var(--rule);color:var(--slate);
+  }
+  .status{
+    font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.06em;
+    text-transform:uppercase;padding:2px 8px;margin-left:10px;vertical-align:middle;
+  }
+  .status.wip{background:#F7E9D8;color:#7A3A08;border:1px solid #E0C4A0}
+  ul{margin:0 0 12px;padding-left:20px;max-width:68ch}
+  li{margin-bottom:6px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:26px}
+  .grid h4{font-family:var(--mono);font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--signal);margin:0 0 10px}
+  .grid p{font-family:var(--mono);font-size:13.5px;line-height:1.9;margin:0;color:var(--ink)}
+
+  footer{padding:52px 0 70px}
+  footer p{font-family:var(--mono);font-size:13px;color:var(--ink-soft);margin:0 0 8px}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <span class="tag">Jordan Owens</span>
+  <a href="#about">About</a>
+  <a href="#competitions">Competition</a>
+  <a href="#projects">Projects</a>
+  <a href="#education">Education</a>
+  <a href="#contact">Contact</a>
+</div></nav>
+
+<header><div class="wrap">
+  <div class="dump"><span class="off">00000000</span>  4a 6f 72 64 61 6e 20 4f  77 65 6e 73 0a 43 79 62  |<span class="asc">Jordan O</span>|
+<span class="off">00000010</span>  65 72 20 45 6e 67 69 6e  65 65 72 69 6e 67 20 2d  |<span class="asc">wens.Cyb</span>|
+<span class="off">00000020</span>  20 4c 6f 75 69 73 69 61  6e 61 20 54 65 63 68 0a  |<span class="asc">er Engr.</span>|</div>
+
+  <h1>Jordan Owens</h1>
+  <p class="role">Cyber Engineering — Louisiana Tech University</p>
+  <p class="lede">Im a passtoit studnet at latech i like to look at close to metal parts of the machine most software never has to think about.Im an officer for latech ltsec cyber club, in this upcoming year.</p>
+  <div class="cta-row">
+    <a class="btn primary" href="resume.pdf" download>Download Resume</a>
+    <a class="btn" href="https://github.com/jairjordan2324">GitHub</a>
+  </div>
+  <div class="meta">
+    <span>Expected Fall 2028</span>
+    <span>Ruston, LA</span>
+  </div>
+</div></header>
+
+<section id="about"><div class="wrap">
+  <div class="head"><span class="off-mark">0x00</span><h2>About</h2></div>
+  <p style="max-width:68ch">I'm a Cyber Engineering student at Louisiana Tech headed toward embedded systems security — the space where firmware, hardware, and the network meet. My daily environment is Linux and Neovim, my primary language is C, and my interest runs toward how systems actually work underneath: processes, file descriptors, packets, and memory layout.</p>
+  <p style="max-width:68ch">I'm a member of the Louisiana Tech Cyber Security Club (LTSEC) in an Outreach &amp; PR role, and I compete on the club's blue team. Long term, I'm working toward reverse engineering and vulnerability research on embedded devices.</p>
+</div></section>
+
+<section id="competitions"><div class="wrap">
+  <div class="head"><span class="off-mark">0x20</span><h2>Competition</h2></div>
+  <div class="item">
+    <h3>N-CAE Cyber Games — Blue Team</h3>
+    <p class="sub">Louisiana Tech Cyber Security Club (LTSEC)</p>
+    <p>Competed on a blue team defending a pre-configured network against a live red team actively working to take services down. Scoring rewarded uptime: every minute a service stayed reachable counted, which turns defense into triage under pressure — find what's misconfigured, harden it, and keep it answering while under attack.</p>
+    <p>My assignment was the DNS server: keeping name resolution available to the rest of the team's infrastructure while it was being targeted. [FILL IN: what you hardened, what the red team threw at it, and how the team placed.]</p>
+    <div class="stack"><span class="chip">DNS</span><span class="chip">Linux hardening</span><span class="chip">Blue team</span><span class="chip">Service uptime</span><span class="chip">Incident response</span></div>
+  </div>
+  <div class="item">
+    <h3>Louisiana Tech Cyber Security Club</h3>
+    <p class="sub">Outreach &amp; PR</p>
+    <p>[FILL IN: what the outreach role actually involves — events supported, material produced, students reached.]</p>
+  </div>
+</div></section>
+
+<section id="projects"><div class="wrap">
+  <div class="head"><span class="off-mark">0x40</span><h2>Projects</h2></div>
+
+  <div class="item">
+    <h3>Techshell</h3>
+    <p class="sub">C · fork/exec · POSIX system calls · two-person team</p>
+    <p>A Unix shell written in C. The shell reads a command line, parses it into a structured representation, then creates child processes with <code>fork</code> and <code>exec</code> to run them — with the operators a real shell needs on top.</p>
+    <ul>
+      <li>Input/output redirection (<code>&lt;</code>, <code>&gt;</code>) through file descriptor manipulation</li>
+      <li>Pipes connecting one process's output to the next one's input</li>
+      <li>Conditional operators (<code>&amp;&amp;</code>, <code>||</code>) driven by child exit status</li>
+      <li>[FILL IN: your specific contributions — commit history is public, claim your own work]</li>
+    </ul>
+    <p><a href="https://github.com/jairjordan2324/Techshell.c">View source →</a></p>
+    <div class="stack"><span class="chip">C</span><span class="chip">fork/exec</span><span class="chip">Linux</span><span class="chip">Git</span></div>
+  </div>
+
+  <div class="item">
+    <h3>File Copy Utility with Integrity Verification</h3>
+    <p class="sub">C · open / read / write / close</p>
+    <p>A reimplementation of <code>cp</code> built on raw system calls instead of standard library I/O, with checksum verification confirming the copy matches the source byte for byte — including edge cases like copying a file onto itself.</p>
+    <div class="stack"><span class="chip">C</span><span class="chip">System calls</span><span class="chip">File I/O</span></div>
+  </div>
+
+  <div class="item">
+    <h3>Packet Layer Decoder<span class="status wip">In progress</span></h3>
+    <p class="sub">C · libpcap</p>
+    <p>A packet capture tool that decodes live network traffic layer by layer — Ethernet, IP, TCP/UDP — directly from raw bytes: pointer arithmetic across the capture buffer, casting to packed header structs, and byte-order conversion for every multi-byte field. Building it in milestones, each committed as it lands.</p>
+    <div class="stack"><span class="chip">C</span><span class="chip">libpcap</span><span class="chip">Networking</span><span class="chip">Endianness</span></div>
+  </div>
+</div></section>
+
+<section id="education"><div class="wrap">
+  <div class="head"><span class="off-mark">0x60</span><h2>Education</h2></div>
+  <div class="item">
+    <h3>Louisiana Tech University</h3>
+    <p class="sub">B.S. Cyber Engineering · Aug 2023 – Expected Fall 2028</p>
+    <p><strong>Completed:</strong> Data Structures · Systems Programming · Engineering Fundamentals</p>
+    <p><strong>In progress:</strong> Computer Network Security · Introduction to Microprocessors · Calculus III</p>
+  </div>
+</div></section>
+
+<section id="skills"><div class="wrap">
+  <div class="head"><span class="off-mark">0x80</span><h2>Skills</h2></div>
+  <div class="grid">
+    <div><h4>Languages</h4><p>C<br>Python<br>Java<br>Bash</p></div>
+    <div><h4>Systems</h4><p>Linux (Mint, Arch)<br>POSIX system calls<br>Process management<br>Shell internals</p></div>
+    <div><h4>Tools</h4><p>Git<br>Neovim<br>Wireshark<br>Microsoft 365</p></div>
+    <div><h4>Concepts</h4><p>Data structures<br>Networking fundamentals<br>DNS<br>Endianness &amp; memory layout</p></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="head"><span class="off-mark">0xA0</span><h2 id="contact">Contact</h2></div>
+  <p><a href="mailto:owensjojordan@gmail.com">owensjojordan@gmail.com</a></p>
+  <p><a href="https://github.com/jairjordan2324">github.com/jairjordan2324</a></p>
+  <p>[FILL IN: LinkedIn URL]</p>
+</div></footer>
+
+</body>
+</html>
