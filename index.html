@@ -54,7 +54,7 @@
     color:var(--ink-soft);margin-bottom:34px;
   }
   .dump .off{color:var(--slate)}
-  .dump .asc{color:var(--signal);font-weight:600}
+  .dump .hex{color:var(--signal);letter-spacing:.02em}
   h1{
     font-family:var(--mono);font-weight:600;font-size:clamp(34px,6vw,58px);
     letter-spacing:-.02em;line-height:1.05;margin:0 0 14px;
@@ -90,13 +90,7 @@
     font-family:var(--mono);font-size:11.5px;padding:3px 9px;
     background:var(--panel);border:1px solid var(--rule);color:var(--slate);
   }
-  .status{
-    font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.06em;
-    text-transform:uppercase;padding:2px 8px;margin-left:10px;vertical-align:middle;
-  }
-  .status.wip{background:#F7E9D8;color:#7A3A08;border:1px solid #E0C4A0}
-  ul{margin:0 0 12px;padding-left:20px;max-width:68ch}
-  li{margin-bottom:6px}
+  .empty-note{font-family:var(--mono);font-size:14px;color:var(--ink-soft);padding:20px 0}
 
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:26px}
   .grid h4{font-family:var(--mono);font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--signal);margin:0 0 10px}
@@ -118,13 +112,11 @@
 </div></nav>
 
 <header><div class="wrap">
-  <div class="dump"><span class="off">00000000</span>  4a 6f 72 64 61 6e 20 4f  77 65 6e 73 0a 43 79 62  |<span class="asc">Jordan O</span>|
-<span class="off">00000010</span>  65 72 20 45 6e 67 69 6e  65 65 72 69 6e 67 20 2d  |<span class="asc">wens.Cyb</span>|
-<span class="off">00000020</span>  20 4c 6f 75 69 73 69 61  6e 61 20 54 65 63 68 0a  |<span class="asc">er Engr.</span>|</div>
+  <div class="dump" id="hero-dump"></div>
 
   <h1>Jordan Owens</h1>
   <p class="role">Cyber Engineering — Louisiana Tech University</p>
-  <p class="lede">Im a passtoit studnet at latech i like to look at close to metal parts of the machine most software never has to think about.Im an officer for latech ltsec cyber club, in this upcoming year.</p>
+  <p class="lede">Im a passionate student at Louisiana Tech.I like to look at close to metal parts of the machine most software never has to think about.Im an officer for latech ltsec cyber club.</p>
   <div class="cta-row">
     <a class="btn primary" href="resume.pdf" download>Download Resume</a>
     <a class="btn" href="https://github.com/jairjordan2324">GitHub</a>
@@ -137,8 +129,8 @@
 
 <section id="about"><div class="wrap">
   <div class="head"><span class="off-mark">0x00</span><h2>About</h2></div>
-  <p style="max-width:68ch">I'm a Cyber Engineering student at Louisiana Tech headed toward embedded systems security — the space where firmware, hardware, and the network meet. My daily environment is Linux and Neovim, my primary language is C, and my interest runs toward how systems actually work underneath: processes, file descriptors, packets, and memory layout.</p>
-  <p style="max-width:68ch">I'm a member of the Louisiana Tech Cyber Security Club (LTSEC) in an Outreach &amp; PR role, and I compete on the club's blue team. Long term, I'm working toward reverse engineering and vulnerability research on embedded devices.</p>
+  <p style="max-width:73ch">I'm a Cyber Engineering student at Louisiana Tech headed toward embedded systems security — the space where firmware, hardware, and the network meet. My daily environment is in the linux terminal and the lanuage i want to be best in is C.  my interest tends to lead me to understanding how companys deploy ways of using basic concepts like  data structure on/off states, and basic file understanding to create such vast systems that the people who created them barley understand.</p>
+  <p style="max-width:72ch">I'm a member of the Louisiana Tech Cyber Security Club (LTSEC) in an Outreach &amp;,I competed on the clubs nacae cyber team.I want to keep going deepr into low-level systems and networking. Long term, I'm working toward reverse engineering and vulnerability research on embedded devices.</p>
 </div></section>
 
 <section id="competitions"><div class="wrap">
@@ -147,54 +139,32 @@
     <h3>N-CAE Cyber Games — Blue Team</h3>
     <p class="sub">Louisiana Tech Cyber Security Club (LTSEC)</p>
     <p>Competed on a blue team defending a pre-configured network against a live red team actively working to take services down. Scoring rewarded uptime: every minute a service stayed reachable counted, which turns defense into triage under pressure — find what's misconfigured, harden it, and keep it answering while under attack.</p>
-    <p>My assignment was the DNS server: keeping name resolution available to the rest of the team's infrastructure while it was being targeted. [FILL IN: what you hardened, what the red team threw at it, and how the team placed.]</p>
+    <p>My assignment was ctfs and dns: keeping name resolution available to the rest of the team's infrastructure while it was being targeted.and discover how malware is sent  and how one would go about finding it </p>
     <div class="stack"><span class="chip">DNS</span><span class="chip">Linux hardening</span><span class="chip">Blue team</span><span class="chip">Service uptime</span><span class="chip">Incident response</span></div>
   </div>
   <div class="item">
     <h3>Louisiana Tech Cyber Security Club</h3>
     <p class="sub">Outreach &amp; PR</p>
-    <p>[FILL IN: what the outreach role actually involves — events supported, material produced, students reached.]</p>
+    <p> My job for the Outreach cyber club is to reach out and get other cyber and Computer science students evolve in our club and draft emails and messages notifying them for when we meet. 
+    </p>
   </div>
 </div></section>
 
 <section id="projects"><div class="wrap">
   <div class="head"><span class="off-mark">0x40</span><h2>Projects</h2></div>
 
-  <div class="item">
-    <h3>Techshell</h3>
-    <p class="sub">C · fork/exec · POSIX system calls · two-person team</p>
-    <p>A Unix shell written in C. The shell reads a command line, parses it into a structured representation, then creates child processes with <code>fork</code> and <code>exec</code> to run them — with the operators a real shell needs on top.</p>
-    <ul>
-      <li>Input/output redirection (<code>&lt;</code>, <code>&gt;</code>) through file descriptor manipulation</li>
-      <li>Pipes connecting one process's output to the next one's input</li>
-      <li>Conditional operators (<code>&amp;&amp;</code>, <code>||</code>) driven by child exit status</li>
-      <li>[FILL IN: your specific contributions — commit history is public, claim your own work]</li>
-    </ul>
-    <p><a href="https://github.com/jairjordan2324/Techshell.c">View source →</a></p>
-    <div class="stack"><span class="chip">C</span><span class="chip">fork/exec</span><span class="chip">Linux</span><span class="chip">Git</span></div>
-  </div>
+  <!-- ADD A PROJECT: copy an .item block from your old file here and fill it in -->
 
-  <div class="item">
-    <h3>File Copy Utility with Integrity Verification</h3>
-    <p class="sub">C · open / read / write / close</p>
-    <p>A reimplementation of <code>cp</code> built on raw system calls instead of standard library I/O, with checksum verification confirming the copy matches the source byte for byte — including edge cases like copying a file onto itself.</p>
-    <div class="stack"><span class="chip">C</span><span class="chip">System calls</span><span class="chip">File I/O</span></div>
-  </div>
+  <p class="empty-note">— coming soon —</p>
 
-  <div class="item">
-    <h3>Packet Layer Decoder<span class="status wip">In progress</span></h3>
-    <p class="sub">C · libpcap</p>
-    <p>A packet capture tool that decodes live network traffic layer by layer — Ethernet, IP, TCP/UDP — directly from raw bytes: pointer arithmetic across the capture buffer, casting to packed header structs, and byte-order conversion for every multi-byte field. Building it in milestones, each committed as it lands.</p>
-    <div class="stack"><span class="chip">C</span><span class="chip">libpcap</span><span class="chip">Networking</span><span class="chip">Endianness</span></div>
-  </div>
 </div></section>
 
 <section id="education"><div class="wrap">
   <div class="head"><span class="off-mark">0x60</span><h2>Education</h2></div>
   <div class="item">
     <h3>Louisiana Tech University</h3>
-    <p class="sub">B.S. Cyber Engineering · Aug 2023 – Expected Fall 2028</p>
-    <p><strong>Completed:</strong> Data Structures · Systems Programming · Engineering Fundamentals</p>
+    <p class="sub">B.S. Cyber Engineering · Expected Fall 2028</p>
+    <p><strong>Completed classes of note:</strong> Data Structures · Systems Programming · Engineering Fundamentals, Cal 1</p>
     <p><strong>In progress:</strong> Computer Network Security · Introduction to Microprocessors · Calculus III</p>
   </div>
 </div></section>
@@ -203,8 +173,8 @@
   <div class="head"><span class="off-mark">0x80</span><h2>Skills</h2></div>
   <div class="grid">
     <div><h4>Languages</h4><p>C<br>Python<br>Java<br>Bash</p></div>
-    <div><h4>Systems</h4><p>Linux (Mint, Arch)<br>POSIX system calls<br>Process management<br>Shell internals</p></div>
-    <div><h4>Tools</h4><p>Git<br>Neovim<br>Wireshark<br>Microsoft 365</p></div>
+    <div><h4>Systems</h4><p>Linux<br>POSIX system calls<br>Process management<br>Shell internals</p></div>
+    <div><h4>Tools</h4><p>Git<br>Wireshark<br>Microsoft 365</p></div>
     <div><h4>Concepts</h4><p>Data structures<br>Networking fundamentals<br>DNS<br>Endianness &amp; memory layout</p></div>
   </div>
 </div></section>
@@ -213,8 +183,33 @@
   <div class="head"><span class="off-mark">0xA0</span><h2 id="contact">Contact</h2></div>
   <p><a href="mailto:owensjojordan@gmail.com">owensjojordan@gmail.com</a></p>
   <p><a href="https://github.com/jairjordan2324">github.com/jairjordan2324</a></p>
-  <p>[FILL IN: LinkedIn URL]</p>
+  <p>Linkedin:jordan-owens-574047408</p>
 </div></footer>
 
 </body>
+<script>
+(function(){
+  var text = "Jordan Owens\nCyber Engineering - Louisiana Tech\n";
+  var el = document.getElementById('hero-dump');
+  if(!el) return;
+  var lines = [];
+  for(var i=0; i<text.length; i+=16){
+    var chunk = text.slice(i, i+16);
+    var addr = i.toString(16).padStart(8,'0');
+    var hexParts = [];
+    for(var j=0; j<16; j++){
+      if(j < chunk.length){
+        var code = chunk.charCodeAt(j);
+        hexParts.push(code.toString(16).padStart(2,'0'));
+      } else {
+        hexParts.push('  ');
+      }
+    }
+    var hexLeft = hexParts.slice(0,8).join(' ');
+    var hexRight = hexParts.slice(8,16).join(' ');
+    lines.push('<span class="off">'+addr+'</span>  <span class="hex">'+hexLeft+'  '+hexRight+'</span>');
+  }
+  el.innerHTML = lines.join('\n');
+})();
+</script>
 </html>
